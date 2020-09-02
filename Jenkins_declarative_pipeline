@@ -1,0 +1,20 @@
+pipeline{
+    agent any
+    environment{
+    	PATH= "/media/maven-3.6/bin:$PATH"
+	}
+        stages{
+            stage("Git Checkout /media/maven-3.6/bin"){
+                steps{
+                    git credentialsId: 'Git_credentials', url: 'https://github.com/Test11411/sparkjava-war-example'
+		                echo "Git checkout is successful"
+                }
+            }
+            stage("Maven Build"){
+                steps{
+                    sh "mvn clean package"
+		                sh "mv target/*.war target/sparkjava-war-example.war"
+                }
+            }
+        }
+    }
